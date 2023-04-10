@@ -22,12 +22,12 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
     })
 
-    // UsersTable.associate = (model) => {
-    //     UsersTable.hasMany(model.BlogPost, {
-    //       foreignKey: 'userId',
-    //       as: 'blog_posts'
-    //     })
-    //   };
+    UsersTable.associate = (model) => {
+        UsersTable.hasMany(model.BlogPost, {
+          foreignKey: 'userId',
+          as: 'blog_posts'
+        })
+      };
 
     return UsersTable;
 }
