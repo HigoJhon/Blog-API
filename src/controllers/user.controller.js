@@ -12,6 +12,18 @@ const postUser = async (req, res) => {
     }
 };
 
+const getUser = async (req, res) => {
+    const { type, message } = await userService.getUser();
+    
+    try {
+        res.status(type).json(message);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json('intenal error');
+    }
+};
+
 module.exports = {
     postUser,
+    getUser,
 };

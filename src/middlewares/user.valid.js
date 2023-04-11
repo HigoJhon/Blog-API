@@ -1,3 +1,7 @@
+// const { authenticate } = require("../services/login.service");
+
+const { validToken } = require('../utils/auth');
+
 const validUser = async (req, res, next) => {
     const { displayName, email, password } = req.body;
     const emailValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -19,6 +23,20 @@ const validUser = async (req, res, next) => {
     next();
 };
 
+const tokenValid = async (req, res, next) => {
+    try {
+        const token = req.header('authorization');
+        if (!token) return res.status(401).json({ message: 'Token not found' });
+    
+        const valid = validToken(token);
+        if (!valid) return res.status(401).json({ message: 'Expired or invalid token' });
+    } catch (error) {
+        return res.status(401).json({ message: 'Expired or invalid token' });
+    }
+    next();
+};
+
 module.exports = {
     validUser,
+    tokenValid,
 };
