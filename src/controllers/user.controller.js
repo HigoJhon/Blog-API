@@ -23,7 +23,19 @@ const getUser = async (req, res) => {
     }
 };
 
+const getId = async (req, res) => {
+    const { id } = req.params;
+    const { type, message } = await userService.getId(id);
+    try {
+        res.status(type).json(message);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json('intenal error');
+    }
+};
+
 module.exports = {
     postUser,
     getUser,
+    getId,
 };
