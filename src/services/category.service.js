@@ -7,6 +7,12 @@ const postCategories = async (name) => {
     return { type: 201, message: addCategory };
 };
 
+const getCategories = async () => {
+    const all = await Category.findAll();
+    return { type: 200, message: all };
+};
+
 module.exports = {
     postCategories,
+    getCategories,
 };

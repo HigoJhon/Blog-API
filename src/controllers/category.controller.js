@@ -10,6 +10,16 @@ const postCategories = async (req, res) => {
     }
 };
 
+const getCategories = async (req, res) => {
+    try {
+        const { type, message } = await categoryService.getCategories();
+        return res.status(type).json(message);
+    } catch (error) {
+        return res.status(500).json(error.message);
+    }
+};
+
 module.exports = {
     postCategories,
+    getCategories,
 };
