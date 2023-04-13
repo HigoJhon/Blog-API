@@ -16,7 +16,13 @@ const validToken = (payload) => {
     return token;
 };
 
+const decodToken = (token) => {
+    const data = jwt.decode(token, secretKey);
+    return data;
+};
+
 module.exports = {
     generateToken,
     validToken,
+    decodToken,
 };

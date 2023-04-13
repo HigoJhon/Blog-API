@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true
        }
     }, {
-        tableName: 'post_categories',
+        tableName: 'posts_categories',
         underscored: true,
         timestamps: false
     });
@@ -23,16 +23,16 @@ module.exports = (sequelize, DataTypes) => {
     PostCategoryTable.associate = ({ Category, BlogPost }) => {
         Category.belongsToMany(BlogPost, {
             as: 'posts',
-            foreignKey: 'categoryId',
-            otherKey: 'postId',
-            through: PostCategoryTable
+            foreignKey: 'category_id',
+            otherKey: 'post_id',
+            through: 'PostCategory'
         })
 
         BlogPost.belongsToMany(Category, {
             as: 'categories',
-            foreignKey: 'postId',
-            otherKey: 'categoryId',
-            through: PostCategoryTable
+            foreignKey: 'post_id',
+            otherKey: 'category_id',
+            through: 'PostCategory'
         })
     }
 
