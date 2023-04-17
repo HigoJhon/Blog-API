@@ -23,7 +23,18 @@ const getPost = async (req, res) => {
     }
 };
 
+const getPostId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { type, message } = await postService.getPostId(id);
+        return res.status(type).json(message);
+    } catch (error) {
+        return res.status(500).json(error.message);
+    }
+};
+
 module.exports = {
     postPost,
     getPost,
+    getPostId,
 };

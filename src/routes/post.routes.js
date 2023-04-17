@@ -5,5 +5,6 @@ const { tokenValid } = require('../middlewares/user.valid');
 
 routerPost.post('/', tokenValid, validPost, postController.postPost);
 routerPost.get('/', tokenValid, postController.getPost);
+routerPost.get('/:id', tokenValid, postController.getPostId);
 
 module.exports = routerPost;
