@@ -28,6 +28,21 @@ const postPost = async (title, content, categoryIds, token) => {
     return { type: 201, message: newObject };
 };
 
+const getPost = async () => {
+    const blogPost = await BlogPost.findAll({ include: [{
+            model: User,
+            as: 'user',
+            attributes: { exclude: ['password'] },
+        }, {
+            model: Category,
+            as: 'categories',
+            through: { attributes: [] },
+        }],
+    });
+    return { type: 200, message: blogPost };
+};
+
 module.exports = {
     postPost,
+    getPost,
 };
