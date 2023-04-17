@@ -60,8 +60,36 @@ const getPostId = async (id) => {
     return { type: 200, message: postId };
 };
 
+const putPost = async (postObj, id, token) => {
+    const post = await BlogPost.findOne({
+        where: { id },
+        include: [{
+            model: Category,
+            as: 'categories',
+            through: { attributes: [] },
+        }],
+    });
+    console.log('cheguei assim :', post, 'eee tamebm', id);
+    
+    const { email } = decodToken(token);
+    
+    // const { dataValues: { id } } = await User.findOne({
+    //     where: { email },
+    // });
+    
+    const { dataValues } = await User.findOne({ where: { email } });
+
+    if (post.userId !== dataValues.id) { 
+        return { type: 401, message: { message: 'Unauthorized user' } }; 
+    }
+    await post.update(postObj);
+
+    return { type: 200, message: post };
+};
+
 module.exports = {
     postPost,
     getPost,
     getPostId,
+    putPost,
 };

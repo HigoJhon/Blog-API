@@ -33,8 +33,20 @@ const getPostId = async (req, res) => {
     }
 };
 
+const putPost = async (req, res) => {
+    const { id } = req.params;
+    const { authorization } = req.headers;
+    try {
+        const { type, message } = await postService.putPost(req.body, id, authorization);
+        return res.status(type).json(message);
+    } catch (error) {
+        return res.status(500).json(error.message);
+    }
+};
+
 module.exports = {
     postPost,
     getPost,
     getPostId,
+    putPost,
 };
