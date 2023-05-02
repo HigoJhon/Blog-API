@@ -69,13 +69,8 @@ const putPost = async (postObj, id, token) => {
             through: { attributes: [] },
         }],
     });
-    console.log('cheguei assim :', post, 'eee tamebm', id);
     
     const { email } = decodToken(token);
-    
-    // const { dataValues: { id } } = await User.findOne({
-    //     where: { email },
-    // });
     
     const { dataValues } = await User.findOne({ where: { email } });
 
